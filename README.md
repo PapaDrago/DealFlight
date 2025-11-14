@@ -1,39 +1,140 @@
-# DealFlight - Flight Search Engine
+# DealFlight ✈️
 
-Buscador de vuelos integrado con Amadeus API.
+Buscador de vuelos inteligente con integración a Amadeus API. Encuentra los mejores vuelos al mejor precio.
 
 ## Instalación Rápida
 
-### 1. Clonar y configurar
+### Requisitos
+
+-   Docker & Docker Compose
+-   Credenciales de [Amadeus Self-Service](https://developers.amadeus.com/register) (gratis)
+
+### Pasos de instalación
+
+1. **Clonar el repositorio**
 
 ```bash
-git clone https://github.com/tu-usuario/DealFlight.git
+git clone https://github.com/PapaDrago/DealFlight.git
 cd DealFlight
+```
+
+2. **Configurar variables de entorno**
+
+```bash
 cp .env.example .env
 ```
 
-### 2. Agregar tus credenciales de Amadeus en `.env`
+3. **Agregar credenciales de Amadeus en `.env`**
 
 ```env
-AMADEUS_API_KEY=tu_api_key_aqui
-AMADEUS_API_SECRET=tu_api_secret_aqui
+AMADEUS_API_KEY=tu_client_id_aqui
+AMADEUS_API_SECRET=tu_client_secret_aqui
+AMADEUS_API_URL=https://test.api.amadeus.com/v2
+AMADEUS_TOKEN_URL=https://test.api.amadeus.com/v1/security/oauth2/token
 ```
 
-### 3. Levantar Docker y ejecutar setup
+> Obtén tus credenciales en: https://developers.amadeus.com/my-apps
+
+4. **Levantar contenedores**
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
-¡Listo! La app estará en http://localhost
+El `entrypoint.sh` se encargará automáticamente de:
 
-## Detener
+-   ✅ Instalar dependencias PHP (composer)
+-   ✅ Instalar dependencias Node (npm)
+-   ✅ Generar clave de aplicación
+-   ✅ Ejecutar migraciones
+-   ✅ Compilar assets (Vite)
+-   ✅ Iniciar servidor de desarrollo
+
+5. **Acceder a la aplicación**
+
+Abre tu navegador en: **http://localhost**
+
+## Comandos útiles
 
 ```bash
-docker-compose down
+# Ver logs
+docker compose logs -f laravel.test
+
+# Entrar al contenedor
+docker compose exec laravel.test bash
+
+# Reiniciar contenedores
+docker compose restart
+
+# Detener todo
+docker compose down
+
+# Limpiar todo (volúmenes incluidos)
+docker compose down -v
 ```
 
-## Stack
+## Stack Tecnológico
 
--   Laravel 11 + React 18 + TypeScript + Inertia.js
--   MySQL 8.0 + Docker
+### Backend
+
+-   Laravel 11
+-   PHP 8.4
+-   MySQL 8.0
+-   Amadeus Flight API
+
+### Frontend
+
+-   React 18
+-   TypeScript
+-   Inertia.js
+-   Material-UI (MUI)
+-   Vite
+
+### DevOps
+
+-   Docker & Docker Compose
+-   Laravel Sail (customizado)
+
+## Estructura del Proyecto
+
+```
+DealFlight/
+├── app/
+│   ├── Http/Controllers/Api/
+│   │   └── FlightController.php      # Controlador de búsqueda de vuelos
+│   ├── Services/
+│   │   └── AmadeusService.php        # Integración con Amadeus API
+│   └── Http/Requests/
+│       └── FlightSearchRequest.php   # Validación de búsqueda
+├── resources/
+│   └── js/
+│       ├── Components/DealComponents/
+│       │   ├── SearchForm.tsx        # Formulario de búsqueda
+│       │   ├── FlightCard.tsx        # Tarjeta de vuelo
+│       │   └── FlightResultsContainer.tsx
+│       └── Pages/Flights/
+│           └── Search.tsx            # Página principal
+├── routes/
+│   ├── api.php                       # Rutas API
+│   └── web.php                       # Rutas web
+└── docker/
+    └── entrypoint.sh                 # Script de inicialización
+```
+
+## Desarrollo
+
+### Hot Reload
+
+Vite está configurado para detectar cambios automáticamente. Los cambios en archivos `.tsx`, `.ts` y `.css` se reflejarán inmediatamente en el navegador.
+
+### API Endpoints
+
+-   `POST /api/flights/search` - Buscar vuelos
+
+### Logs de Laravel
+
+```bash
+docker compose exec laravel.test tail -f storage/logs/laravel.log
+```
+
+[@PapaDrago](https://github.com/PapaDrago)

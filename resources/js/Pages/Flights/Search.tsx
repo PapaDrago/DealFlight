@@ -79,7 +79,7 @@ export default function Search() {
                     </Box>
 
                     {/* Formulario de búsqueda */}
-                    <SearchForm onSearch={handleSearch} loading={loading} />
+                    <SearchForm onSearch={handleSearch} />
 
                     {/* Resultados */}
                     <FlightResultsContainer
