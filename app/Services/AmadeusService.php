@@ -44,7 +44,7 @@ class AmadeusService
 
                 $data = json_decode($response->getBody(), true);
 
-                Log::info('Amadeus token obtenido exitósamente', ['respuesta' => $data]);
+                Log::info('Amadeus token obtenido exitósamente');
 
                 return $data['access_token'];
             } catch (\Exception $e) {

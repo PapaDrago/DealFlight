@@ -22,9 +22,10 @@ class FlightController extends Controller
     public function search(FlightSearchRequest $request): JsonResponse
     {
         try {
-            $response = $this->amadeusService->searchFlights(
-                $request->toAmadeusParams()
-            );
+            $response = $this->amadeusService->searchFlights([
+                ...$request->toAmadeusParams(),
+                'max' => 6,
+            ]);
 
             return response()->json([
                 'success' => true,
