@@ -38,7 +38,7 @@ AMADEUS_TOKEN_URL=https://test.api.amadeus.com/v1/security/oauth2/token
 4. **Levantar contenedores**
 
 ```bash
-docker compose up -d
+docker compose up
 ```
 
 El `entrypoint.sh` se encargará automáticamente de:
