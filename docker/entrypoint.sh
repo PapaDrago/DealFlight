@@ -29,5 +29,9 @@ else
     echo "->Setup ya ejecutado previamente"
 fi
 
+# Levantar Vite dev server en background
+echo "->Iniciando Vite..."
+npm run dev &
+
 # Iniciar el servidor
 exec "$@"

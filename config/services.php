@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'amadeus' => [
+        'api_key' => env('AMADEUS_API_KEY'),
+        'api_secret' => env('AMADEUS_API_SECRET'),
+        'api_url' => env('AMADEUS_API_URL'),
+        'token_url' => env('AMADEUS_TOKEN_URL'),
+    ],
 ];
